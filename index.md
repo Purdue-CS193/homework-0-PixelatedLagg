@@ -1,37 +1,52 @@
-## Welcome to GitHub Pages
+# Will's First CS193 Homework
 
-You can use the [editor on GitHub](https://github.com/kalutes/CS193_Fall18_Lab1/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
+Things I like about CS193:
+- use of git
+- use of latex
+- use of markdown
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+My favourite chunk of code:
+```csharp
+using System;
+using CLICarry;
 
-### Markdown
+class Program
+{
+    public static void Main(string[] args)
+    {
+        CLIManager.Run<Example>(args);
+    }
+}
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+class Example : CLI
+{
+    void CLI.Error(CLICarry.ErrorContext context)
+    {
+        Console.WriteLine("An error has occurred!");
+    }
 
-```markdown
-Syntax highlighted code block
+    [Command("hello")]
+    public void Hello(CommandArgs args)
+    {
+        Console.WriteLine("Hello!");
+    }
 
-# Header 1
-## Header 2
-### Header 3
+    [Command("echo", "message", FlagValueType.String)]
+    public void Echo(CommandArgs args)
+    {
+        if (!args.Flags.HasFlag("message"))
+        {
+            Console.WriteLine("Provide a message!");
+        }
+        else
+        {
+            Console.WriteLine(args.Flags["message"].Value);
+        }
+    }
+}
 
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+It is a really heavy sort of framework for parsing input. I got tired of writing the same parser whenever I made CLI tools so I decided to make a reuseable system for parsing everything. I love writing code to simplify menial operations.
 
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/kalutes/CS193_Fall18_Lab1/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+ok bye
